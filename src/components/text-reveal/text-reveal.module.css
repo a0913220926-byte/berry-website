@@ -1,0 +1,410 @@
+.textReveal {
+  --paper: #f4f1ec;
+  --paper-soft: #ebe7df;
+  --ink: #050505;
+  --white: #f8f6f0;
+  --muted-white: rgba(248, 246, 240, 0.54);
+  --muted-ink: rgba(5, 5, 5, 0.42);
+  --champagne: #d8c59f;
+  --text-reveal-module-height: 128svh;
+  --text-reveal-mobile-module-height: 112svh;
+  --text-reveal-module-inactive-opacity: 0.38;
+  --text-reveal-module-inactive-blur: 0.7px;
+  --text-reveal-module-inactive-scale: 0.985;
+  --text-reveal-module-active-scale: 1;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050505;
+  color: var(--white);
+  isolation: isolate;
+}
+
+.backdrop {
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  /*
+   * 之後正式圖片可替換這裡：
+   * 將下方 CSS-generated background 改成
+   * background-image: url("/images/text-reveal/hero-bg.webp");
+   * 或在 text-reveal.config.ts 的 assets 中管理圖片路徑後接入這裡。
+   */
+  background:
+    linear-gradient(117deg, transparent 0 18%, rgba(255, 255, 255, 0.08) 18.3% 20.2%, transparent 20.5% 100%),
+    linear-gradient(53deg, transparent 0 58%, rgba(255, 255, 255, 0.86) 58.3% 60.5%, rgba(255, 255, 255, 0.08) 61%, transparent 70%),
+    radial-gradient(ellipse at 12% 42%, rgba(255, 255, 255, 0.42) 0 8%, rgba(255, 255, 255, 0.08) 24%, transparent 52%),
+    radial-gradient(ellipse at 82% 18%, rgba(255, 255, 255, 0.26) 0 9%, rgba(255, 255, 255, 0.08) 26%, transparent 55%),
+    #030303;
+  filter: contrast(1.18) saturate(0.12);
+  opacity: 0.84;
+  transform-origin: center;
+}
+
+.backdrop::before,
+.backdrop::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+}
+
+.backdrop::before {
+  background:
+    linear-gradient(142deg, transparent 0 33%, rgba(255, 255, 255, 0.18) 34%, rgba(255, 255, 255, 0.72) 36%, transparent 42%),
+    linear-gradient(86deg, transparent 0 66%, rgba(255, 255, 255, 0.12) 68%, rgba(255, 255, 255, 0.7) 69%, transparent 72%);
+  filter: blur(16px);
+  opacity: 0.92;
+}
+
+.backdrop::after {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 7px);
+  opacity: 0.34;
+  mix-blend-mode: screen;
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 100svh;
+  align-content: end;
+  padding: 8rem 8rem 9rem;
+}
+
+.kicker {
+  margin: 0 0 1.5rem;
+  color: var(--muted-white);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  max-width: 14ch;
+  margin: 0;
+  font-size: 6.75rem;
+  font-weight: 520;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.modules {
+  position: relative;
+  z-index: 2;
+}
+
+.module {
+  display: grid;
+  grid-template-columns: minmax(9rem, 16rem) minmax(0, 1fr) minmax(13rem, 22rem);
+  gap: 4rem;
+  align-items: center;
+  min-height: var(--text-reveal-module-height);
+  padding: 7rem 8rem;
+  color: var(--ink);
+  background: var(--paper);
+  border-top: 1px solid rgba(5, 5, 5, 0.11);
+  opacity: var(--text-reveal-module-inactive-opacity);
+  filter: blur(var(--text-reveal-module-inactive-blur));
+  transform: scale(var(--text-reveal-module-inactive-scale));
+  transform-origin: center;
+  transition:
+    opacity 360ms ease,
+    filter 360ms ease,
+    transform 360ms ease;
+}
+
+.module:nth-child(even) {
+  color: var(--white);
+  background: #070707;
+  border-top-color: rgba(248, 246, 240, 0.13);
+}
+
+.module.isActive {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(var(--text-reveal-module-active-scale));
+}
+
+.moduleMeta {
+  align-self: start;
+  display: grid;
+  gap: 0.75rem;
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.module:nth-child(even) .moduleMeta {
+  color: var(--muted-white);
+}
+
+.moduleNumber {
+  color: currentColor;
+}
+
+.moduleContent {
+  display: grid;
+  gap: 1.6rem;
+  min-width: 0;
+}
+
+.moduleTitle {
+  margin: 0;
+  max-width: 11ch;
+  font-size: 6.25rem;
+  font-weight: 540;
+  line-height: 0.9;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.moduleDescription {
+  max-width: 20ch;
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.moduleZh {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: 1.08rem;
+  font-weight: 420;
+  line-height: 1.75;
+  letter-spacing: 0;
+}
+
+.module:nth-child(even) .moduleZh {
+  color: var(--muted-white);
+}
+
+.moduleVisual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.78;
+  overflow: hidden;
+  align-self: end;
+  /*
+   * 之後正式模塊圖片可替換這裡：
+   * 將下方 CSS-generated background 改成
+   * background-image: url("/images/text-reveal/placeholder-01.webp");
+   */
+  background:
+    linear-gradient(138deg, transparent 0 34%, rgba(255, 255, 255, 0.8) 34.5% 39%, transparent 40% 100%),
+    linear-gradient(18deg, rgba(255, 255, 255, 0.12), transparent 42%),
+    #050505;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.22);
+  transform-origin: center;
+  will-change: transform, filter;
+}
+
+.module:nth-child(even) .moduleVisual {
+  background:
+    linear-gradient(138deg, transparent 0 34%, rgba(5, 5, 5, 0.86) 34.5% 39%, transparent 40% 100%),
+    linear-gradient(18deg, rgba(5, 5, 5, 0.12), transparent 42%),
+    var(--paper-soft);
+  box-shadow: 0 2rem 5rem rgba(255, 255, 255, 0.08);
+}
+
+.visualPlane,
+.visualFold {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.visualPlane {
+  background:
+    linear-gradient(101deg, transparent 0 24%, rgba(255, 255, 255, 0.14) 28%, rgba(255, 255, 255, 0.88) 34%, transparent 44%),
+    radial-gradient(ellipse at 68% 18%, rgba(255, 255, 255, 0.48), transparent 44%),
+    radial-gradient(ellipse at 26% 74%, rgba(255, 255, 255, 0.28), transparent 38%);
+  filter: blur(18px) contrast(1.35);
+  mix-blend-mode: screen;
+  opacity: 0.92;
+}
+
+.module:nth-child(even) .visualPlane {
+  background:
+    linear-gradient(101deg, transparent 0 24%, rgba(5, 5, 5, 0.16) 28%, rgba(5, 5, 5, 0.82) 34%, transparent 44%),
+    radial-gradient(ellipse at 68% 18%, rgba(5, 5, 5, 0.42), transparent 44%),
+    radial-gradient(ellipse at 26% 74%, rgba(5, 5, 5, 0.28), transparent 38%);
+  mix-blend-mode: multiply;
+}
+
+.visualFold {
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 10px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.48), transparent 46%, rgba(255, 255, 255, 0.14));
+  opacity: 0.64;
+}
+
+.rail {
+  position: fixed;
+  top: 50%;
+  left: 1.5rem;
+  z-index: 6;
+  display: grid;
+  gap: 0.7rem;
+  transform: translateY(-50%);
+  mix-blend-mode: difference;
+}
+
+.railItem {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.46);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0;
+  transition:
+    color 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+.railItem.isRailActive {
+  border-color: rgba(255, 255, 255, 0.92);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.copyWrapper {
+  display: contents;
+}
+
+.copyWrapper > * {
+  visibility: hidden;
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+}
+
+.splitLine {
+  display: block;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 1200px) {
+  .hero {
+    padding: 7rem 5rem 8rem;
+  }
+
+  .heroTitle {
+    font-size: 5.4rem;
+  }
+
+  .module {
+    grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr);
+    gap: 3rem;
+    padding: 6rem 5rem;
+  }
+
+  .moduleVisual {
+    grid-column: 2;
+    width: min(20rem, 100%);
+  }
+
+  .moduleTitle {
+    font-size: 5rem;
+  }
+
+  .moduleDescription {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .backdrop {
+    inset: -6%;
+    opacity: 0.68;
+  }
+
+  .hero {
+    min-height: 92svh;
+    padding: 7rem 1.25rem 5rem;
+  }
+
+  .heroTitle {
+    max-width: 9ch;
+    font-size: 3.55rem;
+    line-height: 0.95;
+  }
+
+  .module {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+    min-height: var(--text-reveal-mobile-module-height);
+    padding: 5rem 1.25rem;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .moduleMeta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .moduleTitle {
+    max-width: 10ch;
+    font-size: 3.3rem;
+    line-height: 0.96;
+  }
+
+  .moduleDescription {
+    max-width: 16ch;
+    font-size: 1.72rem;
+    line-height: 1.08;
+  }
+
+  .moduleZh {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .moduleVisual {
+    grid-column: auto;
+    width: 68%;
+    min-width: 13rem;
+    justify-self: end;
+  }
+
+  .rail {
+    top: auto;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    grid-auto-flow: column;
+    justify-content: center;
+    transform: none;
+  }
+
+  .railItem {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module,
+  .moduleVisual,
+  .railItem {
+    transition: none;
+  }
+}
