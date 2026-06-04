@@ -1,0 +1,351 @@
+.landingReveal {
+  --intro-card-width: 100%;
+  --intro-card-height: 100%;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 0;
+  background: var(--landing-reveal-bg);
+  color: var(--landing-reveal-ink);
+  isolation: isolate;
+}
+
+.nav {
+  position: absolute;
+  inset: clamp(1.25rem, 2vw, 1.8rem) clamp(1.25rem, 2.5vw, 2rem) auto;
+  z-index: 8;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  font-size: clamp(0.75rem, 0.95vw, 0.9rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.brand {
+  max-width: 14rem;
+  font-weight: 700;
+}
+
+.navItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.18rem 1.6rem;
+  max-width: min(44rem, 68vw);
+}
+
+.maskedText {
+  display: block;
+  overflow: clip;
+}
+
+.navLink,
+.socialLink {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.navLink:hover,
+.socialLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--landing-reveal-panel);
+  color: var(--landing-reveal-ink);
+}
+
+.revealSurface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--landing-reveal-paper);
+  color: var(--landing-reveal-ink);
+  will-change: transform;
+}
+
+.introStack {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.introCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--intro-card-width);
+  height: var(--intro-card-height);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: var(--landing-reveal-card-radius);
+  background: var(--landing-reveal-paper);
+  box-shadow: 0 1.8rem 4rem rgba(15, 14, 13, 0.24);
+  will-change: transform, opacity, border-radius;
+}
+
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #d8d3c6;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mediaPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  padding: 0.9rem;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mediaPlaceholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255, 255, 255, 0.18) 36% 43%, transparent 43%),
+    radial-gradient(circle at 64% 34%, rgba(255, 255, 255, 0.32), transparent 22%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
+  opacity: 0.88;
+}
+
+.mediaPlaceholder span {
+  display: none;
+}
+
+.toneStone {
+  background:
+    radial-gradient(circle at 28% 24%, #f1d6ac 0 12%, transparent 13%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.25), transparent 45%),
+    linear-gradient(110deg, #8a8275, #2f2c29);
+}
+
+.toneSage {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(245, 245, 228, 0.95), transparent 22%),
+    linear-gradient(135deg, #b9c5b1, #55624f);
+  color: #1c211b;
+}
+
+.toneCharcoal {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 48%),
+    radial-gradient(ellipse at 70% 38%, rgba(255, 255, 255, 0.45), transparent 26%),
+    radial-gradient(ellipse at 44% 58%, rgba(255, 255, 255, 0.2), transparent 20%),
+    #151515;
+}
+
+.toneIvory {
+  background:
+    radial-gradient(circle at 32% 68%, rgba(40, 40, 40, 0.36), transparent 18%),
+    linear-gradient(120deg, transparent, rgba(0, 0, 0, 0.18)),
+    linear-gradient(180deg, #f1ede1, #b8b1a2);
+  color: #151515;
+}
+
+.toneRose {
+  background:
+    radial-gradient(circle at 65% 28%, rgba(255, 255, 255, 0.52), transparent 26%),
+    radial-gradient(circle at 36% 68%, rgba(255, 129, 175, 0.48), transparent 22%),
+    linear-gradient(145deg, #a97865, #3a1712);
+}
+
+.heroContent {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(5.8rem, 13vh, 7.3rem) clamp(1.25rem, 2.5vw, 2rem)
+    clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.eyebrow {
+  position: absolute;
+  top: clamp(2.35rem, 5vw, 3.6rem);
+  left: clamp(1.25rem, 2.5vw, 2rem);
+  max-width: 16rem;
+  color: var(--landing-reveal-muted);
+  font-size: clamp(0.72rem, 1vw, 0.86rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.headline {
+  width: min(48rem, 58vw);
+}
+
+.headline h1 {
+  margin: 0;
+  visibility: hidden;
+  font-size: clamp(2.2rem, 3.45vw, 3.9rem);
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.splitLine {
+  position: relative;
+  will-change: transform, opacity;
+}
+
+.social {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  line-height: 1.12;
+}
+
+.socialLead {
+  max-width: 12rem;
+  text-transform: uppercase;
+}
+
+.socialLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.18rem;
+}
+
+.footerNote {
+  color: var(--landing-reveal-muted);
+}
+
+.preloader {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: block;
+  padding: 0;
+  background: var(--landing-reveal-panel);
+  color: var(--landing-reveal-paper);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  will-change: clip-path;
+}
+
+.preloaderTop,
+.preloaderBottom {
+  display: none;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.loaderTrack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.loaderLine {
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@media (max-width: 760px) {
+  .landingReveal {
+    --intro-card-width: 100%;
+    --intro-card-height: 100%;
+    padding: 0;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .navItems {
+    justify-content: flex-start;
+    max-width: 100%;
+    gap: 0.2rem 1rem;
+  }
+
+  .hero {
+    width: 100%;
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .heroContent {
+    padding: 10.25rem 1rem 1rem;
+  }
+
+  .eyebrow {
+    position: static;
+    display: block;
+    max-width: 16rem;
+    margin-top: 0.35rem;
+  }
+
+  .headline {
+    width: 100%;
+  }
+
+  .headline h1 {
+    font-size: clamp(2rem, 8.6vw, 2.95rem);
+    line-height: 1;
+  }
+
+  .social {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding-left: clamp(3.75rem, 14vw, 4.5rem);
+    font-size: 0.86rem;
+  }
+
+  .socialLinks {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+
+  .headline {
+    visibility: visible;
+  }
+}
